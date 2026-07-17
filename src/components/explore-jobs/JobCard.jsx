@@ -1,0 +1,62 @@
+import { Card, Button } from "@heroui/react";
+import Link from "next/link";
+import Image from "next/image";
+import { FaStar } from "react-icons/fa";
+
+export default function JobCard({ job }) {
+  return (
+    <Card className="bg-white/3 backdrop-blur-md border border-white/8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden flex flex-col h-105 transition-all hover:border-[#00e599]/30 hover:-translate-y-1 group">
+      {/* ── Image Section ── */}
+      <div className="relative h-40 w-full overflow-hidden">
+        <Image
+          src={job.image}
+          alt={job.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          priority={false}
+        />
+        {/* Rating Badge (z-10 added to stay above the Image) */}
+        <div className="absolute top-3 right-3 z-10 bg-[#0a0f1d]/80 backdrop-blur-sm border border-white/10 text-[10px] font-bold px-2 py-1 rounded-md text-white flex items-center gap-1">
+          <FaStar className="text-yellow-500 -mt-0.5" /> {job.rating}
+        </div>
+      </div>
+
+      {/* ── Content Section ── */}
+      <div className="p-5 flex flex-col grow">
+        <h3 className="text-base font-bold text-white mb-1 line-clamp-1">
+          {job.title}
+        </h3>
+        <p className="text-xs text-slate-400 mb-3 line-clamp-2 leading-relaxed">
+          {job.description}
+        </p>
+
+        {/* Meta Tags */}
+        <div className="flex flex-wrap gap-2 mb-4 mt-auto">
+          <span className="text-[9px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-slate-300 px-2 py-1 rounded-md">
+            {job.category}
+          </span>
+          <span className="text-[9px] font-bold uppercase tracking-wider bg-[#00e599]/10 border border-[#00e599]/20 text-[#00e599] px-2 py-1 rounded-md">
+            {job.type}
+          </span>
+        </div>
+
+        {/* Footer Info & Action */}
+        <div className="pt-4 border-t border-white/5 flex justify-between items-center mt-auto">
+          <div>
+            <p className="text-xs text-slate-500">Starting at</p>
+            <p className="text-sm font-black text-white">
+              ${job.price}
+              {job.type === "Hourly" ? "/hr" : ""}
+            </p>
+          </div>
+          <Link href={`/details/${job.id}`}>
+            <Button className="bg-white/5 hover:bg-[#00e599] hover:text-[#0a0f1d] text-white border border-white/10 hover:border-[#00e599] font-bold rounded-lg text-xs px-4 py-2 transition-all">
+              View Details
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </Card>
+  );
+}
