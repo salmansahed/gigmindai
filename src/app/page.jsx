@@ -19,6 +19,8 @@ export default function Home() {
       <Stats />
       {/* 5. How It Works Workflow (Server Component) */}
       <HowItWorks />
+      {/* 6. Testimonials (Server Component) */}
+      <Testimonials />
     </main>
   );
 }
