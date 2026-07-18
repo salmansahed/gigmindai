@@ -11,7 +11,7 @@ import { FaBrain } from "react-icons/fa6";
 const LOGGED_OUT_ROUTES = [
   { label: "Home", href: "#home" },
   { label: "Explore Jobs", href: "#categories" },
-  { label: "About", href: "#about" },
+  { label: "About", href: "/about-us" },
 ];
 
 const LOGGED_IN_ROUTES = [
@@ -19,7 +19,7 @@ const LOGGED_IN_ROUTES = [
   { label: "Explore Jobs", href: "#categories" },
   { label: "Add Job", href: "#add-job" },
   { label: "Manage Gigs", href: "#manage-jobs" },
-  { label: "About", href: "#about" },
+  { label: "About", href: "/about-us" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────

@@ -63,18 +63,18 @@ export default function CTA() {
               <form
                 onSubmit={handleSubscribe}
                 noValidate
-                className="flex flex-col sm:flex-row w-full justify-center items-end"
+                className="flex flex-col sm:flex-row w-full justify-center items-center gap-3 sm:gap-0 sm:items-end"
               >
                 <TextField isRequired value={email} onChange={setEmail}>
                   <Input
                     type="email"
                     placeholder="Enter your work email address"
-                    className="border border-white/20 bg-white/5 text-white placeholder:text-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 w-full sm:w-auto h-11.5 rounded-l-2xl rounded-r-none"
+                    className="border border-white/20 bg-white/5 text-white placeholder:text-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 w-full sm:w-auto h-11.5 rounded-full sm:rounded-l-2xl sm:rounded-r-none"
                   />
                 </TextField>
                 <Button
                   type="submit"
-                  className="h-11.5 px-6 text-sm font-bold tracking-wide text-[#0a0f1d] bg-linear-to-r from-emerald-500 to-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all shrink-0 rounded-r-2xl rounded-l-none"
+                  className="h-11.5 px-6 text-sm font-bold tracking-wide text-[#0a0f1d] bg-linear-to-r from-emerald-500 to-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all shrink-0 rounded-full sm:rounded-r-2xl sm:rounded-l-none"
                 >
                   <FiSend className="w-4 h-4" />
                   Subscribe
