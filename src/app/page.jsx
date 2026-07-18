@@ -1,5 +1,6 @@
 // Pure Server Component Orchestrator
 
+import CTA from "../components/home/CTA";
 import Hero from "../components/home/Hero";
 import HowItWorks from "../components/home/HowItWorks";
 import PopularCategories from "../components/home/PopularCategories";
@@ -22,6 +23,8 @@ export default function Home() {
       <HowItWorks />
       {/* 6. Testimonials (Server Component) */}
       <Testimonials />
+      {/* 7. Call To Action / Newsletter (Client Component with local State) */}
+      <CTA />
     </main>
   );
 }
