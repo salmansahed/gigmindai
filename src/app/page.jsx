@@ -2,6 +2,7 @@
 
 import Hero from "../components/home/Hero";
 import PopularCategories from "../components/home/PopularCategories";
+import Stats from "../components/home/Stats";
 import TrustedCompanies from "../components/home/TrustedCompanies";
 
 export default function Home() {
@@ -13,6 +14,8 @@ export default function Home() {
       <TrustedCompanies />
       {/* 3. Popular Categories (Server Component) */}
       <PopularCategories />
+      {/* 4. Platform Statistics & Sparkline Chart (Server Component) */}
+      <Stats />
     </main>
   );
 }
