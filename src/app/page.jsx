@@ -1,6 +1,7 @@
 // Pure Server Component Orchestrator
 
 import Hero from "../components/home/Hero";
+import HowItWorks from "../components/home/HowItWorks";
 import PopularCategories from "../components/home/PopularCategories";
 import Stats from "../components/home/Stats";
 import TrustedCompanies from "../components/home/TrustedCompanies";
@@ -16,6 +17,8 @@ export default function Home() {
       <PopularCategories />
       {/* 4. Platform Statistics & Sparkline Chart (Server Component) */}
       <Stats />
+      {/* 5. How It Works Workflow (Server Component) */}
+      <HowItWorks />
     </main>
   );
 }
