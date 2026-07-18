@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa6";
 const CARD_CLASS =
   "bg-white/3 backdrop-blur-md border border-white/5 shadow-none rounded-2xl transition-all duration-300 ease-out group hover:-translate-y-1 hover:bg-white/7 hover:border-cyan-500/30 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]";
 
-const testimonials = [
+const testimonialsData = [
   {
     quote:
       '"Finding reliable Web3 and React developers used to take weeks. With GigMind\'s AI scanner matching code styles, we contracted a lead dev in 2 hours."',
@@ -46,7 +46,7 @@ export default function Testimonials() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
+          {testimonialsData.map((t) => (
             <Card key={t.name} className={CARD_CLASS}>
               <div className="text-left flex flex-col justify-between p-6">
                 {/* Stars */}
