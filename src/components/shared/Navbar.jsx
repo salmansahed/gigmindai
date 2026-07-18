@@ -9,16 +9,16 @@ import { FaBrain } from "react-icons/fa6";
 // ─── Navigation Route Definitions ────────────────────────────────────────────
 
 const LOGGED_OUT_ROUTES = [
-  { label: "Home", href: "#home" },
-  { label: "Explore Jobs", href: "#categories" },
+  { label: "Home", href: "/" },
+  { label: "Explore Jobs", href: "/explore-jobs" },
   { label: "About", href: "/about-us" },
 ];
 
 const LOGGED_IN_ROUTES = [
-  { label: "Home", href: "#home" },
-  { label: "Explore Jobs", href: "#categories" },
-  { label: "Add Job", href: "#add-job" },
-  { label: "Manage Gigs", href: "#manage-jobs" },
+  { label: "Home", href: "/" },
+  { label: "Explore Jobs", href: "/explore-jobs" },
+  { label: "Add Job", href: "/add-job" },
+  { label: "Manage Gigs", href: "/manage-gigs" },
   { label: "About", href: "/about-us" },
 ];
 
@@ -54,7 +54,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             {/* ── Logo ─────────────────────────────────────────────────── */}
             <Link
-              href="#home"
+              href="/"
               className="flex items-center gap-2.5 group shrink-0"
               aria-label="GigMind AI – go to homepage"
               onClick={closeMenu}
