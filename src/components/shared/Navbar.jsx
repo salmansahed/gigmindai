@@ -28,8 +28,8 @@ const roleClient = [
 const roleFreelancer = [
   { label: "Home", href: "/" },
   { label: "Explore Jobs", href: "/explore-jobs" },
-  { label: "My Applications", href: "/my-applications" },
-  { label: "Saved Gigs", href: "/saved-gigs" },
+  { label: "My Applications", href: "/freelancer/my-applications" },
+  { label: "Saved Gigs", href: "/freelancer/saved-gigs" },
   { label: "About", href: "/about-us" },
 ];
 
