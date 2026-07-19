@@ -36,7 +36,7 @@ const roleFreelancer = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Navbar() {
-  const { user, isLoading } = useClientUserSession();
+  const { user, isPending } = useClientUserSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isLoggedIn = !!user;
   const activeRoutes = isLoggedIn
@@ -100,7 +100,19 @@ export default function Navbar() {
 
             {/* ── Desktop CTA ───────────────────────────────────────────── */}
             <div className="hidden lg:flex items-center gap-3">
-              {isLoggedIn ? (
+              {/* Loading skeleton */}
+              {isPending ? (
+                <div className="flex items-center gap-3 animate-pulse">
+                  <div className="w-11 h-11 rounded-full bg-white/10" />
+                  <div className="flex flex-col gap-2">
+                    <div className="w-24 h-3 rounded-full bg-white/10" />
+                    <div className="w-16 h-2 rounded-full bg-white/5" />
+                  </div>
+                  <div className="h-6 w-px bg-white/10 mx-2" />
+                  <div className="w-16 h-8 rounded-lg bg-white/10" />
+                </div>
+              ) : isLoggedIn ? (
+                // user is logged in, show profile and logout
                 <>
                   <div className="flex items-center gap-3">
                     <div className="relative w-11 h-11 rounded-full p-0.5 border-2 border-cyan-500/80 shadow-[0_0_12px_rgba(6,182,212,0.4)] shrink-0">
@@ -114,7 +126,6 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    {/* user name & role */}
                     <div className="flex flex-col justify-center">
                       <span className="text-sm font-semibold tracking-wide text-white leading-tight">
                         {user?.name}
@@ -130,6 +141,7 @@ export default function Navbar() {
                   <LogoutModal />
                 </>
               ) : (
+                // guest user, show sign up/login buttons
                 <>
                   <Link href="/auth/sign-up">
                     <Button
@@ -187,7 +199,13 @@ export default function Navbar() {
             <div className="my-1 border-t border-white/6" />
 
             <div className="flex items-center justify-between px-2 py-2 gap-3">
-              {isLoggedIn ? (
+              {/* Loading state skeleton for mobile menu */}
+              {isPending ? (
+                <div className="flex items-center gap-3 w-full animate-pulse">
+                  <div className="w-full h-10 rounded-lg bg-white/5" />
+                  <div className="w-full h-10 rounded-lg bg-white/5" />
+                </div>
+              ) : isLoggedIn ? (
                 <>
                   <div className="flex items-center gap-3">
                     <div className="relative w-11 h-11 rounded-full p-0.5 border-2 border-cyan-500/80 shadow-[0_0_12px_rgba(6,182,212,0.4)] shrink-0">
@@ -201,7 +219,6 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    {/* user name & role */}
                     <div className="flex flex-col justify-center">
                       <span className="text-sm font-semibold tracking-wide text-white leading-tight">
                         {user?.name}

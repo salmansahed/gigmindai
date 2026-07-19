@@ -18,12 +18,14 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { FiLogIn } from "react-icons/fi";
+import { FiLogIn, FiUser } from "react-icons/fi";
 
 const LoginForm = () => {
   const router = useRouter();
 
   const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -45,9 +47,21 @@ const LoginForm = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const data = await authClient.signIn.social({
+    await authClient.signIn.social({
       provider: "google",
     });
+  };
+
+  const handleDemoLogin = (role) => {
+    setTimeout(() => {
+      if (role === "freelancer") {
+        setEmail(process.env.NEXT_PUBLIC_DEMO_EMAIL_FREELANCER);
+        setPassword(process.env.NEXT_PUBLIC_DEMO_PASSWORD_FREELANCER);
+      } else {
+        setEmail(process.env.NEXT_PUBLIC_DEMO_EMAIL_CLIENT);
+        setPassword(process.env.NEXT_PUBLIC_DEMO_PASSWORD_CLIENT);
+      }
+    }, 0);
   };
 
   return (
@@ -64,11 +78,32 @@ const LoginForm = () => {
         </p>
       </div>
 
+      {/* Demo Buttons */}
+      <div className="flex gap-2">
+        <Button
+          size="sm"
+          variant="outline"
+          className="w-full text-[10px] uppercase tracking-wider border-white/10 hover:bg-white/10 text-white"
+          onPress={() => handleDemoLogin("freelancer")}
+        >
+          <FiUser className="size-3" /> Freelancer Demo
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          className="w-full text-[10px] uppercase tracking-wider border-white/10 hover:bg-white/10 text-white"
+          onPress={() => handleDemoLogin("client")}
+        >
+          <FiUser className="size-3" /> Client Demo
+        </Button>
+      </div>
+
       {/* Email Field */}
       <TextField
         isRequired
         className="w-full flex flex-col gap-1.5"
         validate={(value) => {
+          if (!value) return null;
           if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
             return "Please enter a valid email address";
           }
@@ -79,6 +114,8 @@ const LoginForm = () => {
         <Input
           name="email"
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email address"
           className="h-12 text-sm rounded-xl border border-white/10 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 bg-white/5 text-white placeholder:text-slate-500 transition-all duration-200 px-4 w-full"
         />
@@ -91,6 +128,7 @@ const LoginForm = () => {
         name="password"
         isRequired
         validate={(value) => {
+          if (!value) return null;
           if (value.length < 8) {
             return "Password must be at least 8 characters";
           }
@@ -107,6 +145,8 @@ const LoginForm = () => {
         <InputGroup className="h-12 border rounded-xl border-white/10 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 bg-white/5 overflow-hidden transition-all duration-200">
           <InputGroup.Input
             name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full h-full text-sm pl-4 border-none bg-transparent focus:ring-0 focus:outline-hidden text-white placeholder:text-slate-500"
             type={isVisible ? "text" : "password"}
             placeholder="Enter your password"

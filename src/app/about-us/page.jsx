@@ -1,8 +1,7 @@
-"use client";
-
+import Link from "next/link";
 import { Card, Button } from "@heroui/react";
 
-// Section 1: Core Technical Pillars of GigMindAi
+// Platform data
 const platformPillars = [
   {
     icon: "🧠",
@@ -24,7 +23,6 @@ const platformPillars = [
   },
 ];
 
-// Section 2: Core Agentic AI Features Breakdown
 const aiFeatures = [
   {
     type: "AI Feature A",
@@ -49,13 +47,11 @@ const aiFeatures = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#0a0f1d] text-white overflow-hidden relative font-sans selection:bg-[#00e599]/30">
-      {/* Background ambient glowing blur elements for unified UX */}
+      {/* Background elements */}
       <div className="absolute top-[-5%] left-[-5%] w-100 h-100 bg-[#00e599]/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[10%] right-[-5%] w-125 h-125 bg-[#3b82f6]/5 rounded-full blur-[130px] pointer-events-none" />
 
-      {/* Main Responsive Grid Container - pt-28 added to fix top spacing issue */}
       <div className="max-w-6xl mx-auto px-6 pt-28 pb-16 relative z-10">
-        {/* ── 🚀 HERO AREA: MISSION STATEMENT ── */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#00e599] bg-[#00e599]/10 border border-[#00e599]/20 px-4 py-1.5 rounded-full mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00e599] animate-pulse" />
@@ -69,14 +65,10 @@ export default function AboutPage() {
           </h1>
           <p className="text-sm md:text-base text-slate-400 leading-relaxed">
             GigMindAi is a production-ready Full Stack Agentic AI Application
-            built to pioneer the next generation of digital collaboration. By
-            leveraging advanced Large Language Models (LLMs) and secure
-            distributed system architectures, we redefine how builders and
-            global innovators integrate.
+            built to pioneer the next generation of digital collaboration.
           </p>
         </div>
 
-        {/* ── 📊 SECTION: PLATFORM PILLARS (3 CARDS EQUAL SIZE & RADIUS) ── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
           {platformPillars.map((pillar, index) => (
             <Card
@@ -96,16 +88,12 @@ export default function AboutPage() {
           ))}
         </div>
 
-        {/* ── 🤖 CORE AGENTIC AI FEATURES HIGHLIGHT ── */}
+        {/* Features section */}
         <div className="mb-24">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight mb-3">
               Core Autonomous Workflows
             </h2>
-            <p className="text-xs text-slate-500 max-w-xl mx-auto">
-              Deep analysis of the integrated reasoning systems built natively
-              into the GigMindAi execution layer.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -114,15 +102,12 @@ export default function AboutPage() {
                 key={`feature-${idx}`}
                 className="bg-white/3 backdrop-blur-md border border-white/8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-6 relative overflow-hidden"
               >
-                {/* Visual Accent Corner Badge */}
                 <div className="absolute top-0 right-0 bg-[#00e599]/10 border-b border-l border-white/5 text-[#00e599] text-[9px] font-mono font-bold px-3 py-1 uppercase tracking-wider rounded-bl-xl">
                   {feature.type}
                 </div>
-
                 <h4 className="text-base font-bold text-white mb-4 pr-16">
                   {feature.name}
                 </h4>
-
                 <ul className="space-y-3">
                   {feature.capabilities.map((capability, capIdx) => (
                     <li
@@ -141,101 +126,23 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* ── 📊 SYSTEM INSIGHTS & METRICS DISPLAY ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-24">
-          <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-2 font-mono">
-              System Specification
-            </span>
-            <h2 className="text-2xl font-bold text-white mb-5 tracking-tight">
-              Production Vetting Infrastructure
-            </h2>
-            <p className="text-xs text-slate-400 leading-relaxed mb-4">
-              Our backend pipeline couples Node.js, Express, and MongoDB with
-              state-of-the-art inference APIs. By feeding highly structured
-              prompt templates into large language models, the platform achieves
-              real-time data classification, context preservation, and granular
-              risk assessment.
-            </p>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Every system transaction is backed by cryptographic token
-              verification, secure routing structures, and fully optimized data
-              indexes to maintain maximum enterprise reliability.
-            </p>
-          </div>
-
-          {/* Interactive Technical Dashboard Component */}
-          <Card className="bg-white/3 backdrop-blur-md border border-white/8 p-6 rounded-2xl">
-            <div className="flex items-center justify-between border-b border-white/5 pb-3 mb-4">
-              <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">
-                Model Processing Telemetry
-              </span>
-              <span className="w-2 h-2 rounded-full bg-[#00e599] animate-ping" />
-            </div>
-            <div className="space-y-3 mb-4">
-              <div>
-                <div className="flex justify-between text-[10px] text-slate-400 mb-1">
-                  <span>Context Retention Memory</span>
-                  <span>99.2%</span>
-                </div>
-                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-linear-to-r from-blue-500 to-[#00e599] rounded-full"
-                    style={{ width: "99.2%" }}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-[10px] text-slate-400 mb-1">
-                  <span>Prompt Pipeline Efficiency</span>
-                  <span>94.8%</span>
-                </div>
-                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-linear-to-r from-blue-500 to-[#00e599] rounded-full"
-                    style={{ width: "94.8%" }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="bg-[#0a0f1d] border border-white/5 p-3 rounded-xl text-center">
-                <p className="text-lg font-black text-white">LLM</p>
-                <p className="text-[8px] text-slate-500 uppercase tracking-widest font-bold">
-                  Inference Layer
-                </p>
-              </div>
-              <div className="bg-[#0a0f1d] border border-white/5 p-3 rounded-xl text-center">
-                <p className="text-lg font-black text-[#00e599]">&lt; 60s</p>
-                <p className="text-[8px] text-slate-500 uppercase tracking-widest font-bold">
-                  Matching Speed
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* ── 🏁 CTA SECTION (Fixed White Background & Unified Style) ── */}
+        {/* CTA Section */}
         <Card className="bg-white/3 backdrop-blur-md border border-white/8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
           <div className="absolute top-[-50%] left-[-25%] w-87.5 h-87.5 bg-[#00e599]/5 rounded-full blur-[100px] pointer-events-none" />
-
           <h2 className="text-xl md:text-3xl font-black text-white mb-4 tracking-tight">
             Explore Cognitive Agent Infrastructure
           </h2>
-          <p className="text-xs md:text-sm text-slate-400 max-w-xl mx-auto mb-6 leading-relaxed">
-            Leverage custom templates, continuous preference evaluation, and
-            robust full-stack architecture built specifically for modern scaling
-            demands.
-          </p>
           <div className="flex justify-center gap-3">
-            <Button className="bg-[#00e599] hover:bg-[#00c885] text-[#0a0f1d] font-bold rounded-xl text-xs px-6 shadow-[0_0_20px_rgba(0,229,153,0.2)] transition-all">
-              Initialize System
-            </Button>
-            <Button
-              className="border-white/20 hover:border-white/40 text-white font-semibold rounded-xl text-xs px-6 transition-all"
-            >
-              Documentation
-            </Button>
+            <Link href="/explore-jobs">
+              <Button className="bg-[#00e599] hover:bg-[#00c885] text-[#0a0f1d] font-bold rounded-xl text-xs px-6 shadow-[0_0_20px_rgba(0,229,153,0.2)] transition-all">
+                Initialize System
+              </Button>
+            </Link>
+            <Link href="/about-us">
+              <Button className="border-white/20 hover:border-white/40 text-white font-semibold rounded-xl text-xs px-6 transition-all">
+                Documentation
+              </Button>
+            </Link>
           </div>
         </Card>
       </div>
