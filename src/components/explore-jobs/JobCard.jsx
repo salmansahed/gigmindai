@@ -16,14 +16,10 @@ export default function JobCard({ job }) {
           className="object-cover transition-transform duration-500 group-hover:scale-110"
           priority={false}
         />
-        {/* Rating Badge (z-10 added to stay above the Image) */}
-        <div className="absolute top-3 right-3 z-10 bg-[#0a0f1d]/80 backdrop-blur-sm border border-white/10 text-[10px] font-bold px-2 py-1 rounded-md text-white flex items-center gap-1">
-          <FaStar className="text-yellow-500 -mt-0.5" /> {job.rating}
-        </div>
       </div>
 
       {/* ── Content Section ── */}
-      <div className="p-5 flex flex-col grow">
+      <div className="py-5 px-1 flex flex-col grow">
         <h3 className="text-base font-bold text-white mb-1 line-clamp-1">
           {job.title}
         </h3>
@@ -37,7 +33,7 @@ export default function JobCard({ job }) {
             {job.category}
           </span>
           <span className="text-[9px] font-bold uppercase tracking-wider bg-[#00e599]/10 border border-[#00e599]/20 text-[#00e599] px-2 py-1 rounded-md">
-            {job.type}
+            {job.jobType}
           </span>
         </div>
 
@@ -46,8 +42,8 @@ export default function JobCard({ job }) {
           <div>
             <p className="text-xs text-slate-500">Starting at</p>
             <p className="text-sm font-black text-white">
-              ${job.price}
-              {job.type === "Hourly" ? "/hr" : ""}
+              ${job.budget}
+              {job.jobType === "Hourly Rate" ? "/hr" : ""}
             </p>
           </div>
           <Link href={`/details/${job.id}`}>
