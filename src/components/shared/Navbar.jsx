@@ -7,8 +7,8 @@ import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { FaBrain } from "react-icons/fa6";
 import { useClientUserSession } from "../../hooks/useClientUserSession";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
 import LogoutModal from "../auth/LogoutModal";
+import Image from "next/image";
 
 // ─── Navigation Route Definitions ────────────────────────────────────────────
 
@@ -89,7 +89,34 @@ export default function Navbar() {
             {/* ── Desktop CTA ───────────────────────────────────────────── */}
             <div className="hidden md:flex items-center gap-3">
               {isLoggedIn ? (
-                <LogoutModal />
+                <>
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-11 h-11 rounded-full p-0.5 border-2 border-cyan-500/80 shadow-[0_0_12px_rgba(6,182,212,0.4)] shrink-0">
+                      <div className="relative w-full h-full rounded-full overflow-hidden">
+                        <Image
+                          src={user?.image}
+                          alt={user?.name || "User profile"}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+
+                    {/* user name & role */}
+                    <div className="flex flex-col justify-center">
+                      <span className="text-sm font-semibold tracking-wide text-white leading-tight">
+                        {user?.name}
+                      </span>
+                      <span className="text-xs font-medium text-slate-400 leading-none mt-0.5">
+                        User
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="h-6 w-px bg-white/50 mx-4 shrink-0" />
+
+                  <LogoutModal />
+                </>
               ) : (
                 <>
                   <Link href="/auth/sign-up">
@@ -148,23 +175,35 @@ export default function Navbar() {
             <div className="my-1 border-t border-white/6" />
 
             <div className="flex items-center justify-between px-2 py-2 gap-3">
-              <span
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${isLoggedIn ? "text-emerald-400 border-emerald-500/30 bg-emerald-500/8" : "text-slate-500 border-white/10 bg-white/4"}`}
-              >
-                <span
-                  className={`w-1.5 h-1.5 rounded-full ${isLoggedIn ? "bg-emerald-400 animate-pulse" : "bg-slate-600"}`}
-                />
-                {isLoggedIn ? "Logged In" : "Guest Mode"}
-              </span>
-
               {isLoggedIn ? (
-                <Button
-                  variant="danger"
-                  size="sm"
-                  className="text-xs font-semibold uppercase tracking-wider"
-                >
-                  Log Out
-                </Button>
+                <>
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-11 h-11 rounded-full p-0.5 border-2 border-cyan-500/80 shadow-[0_0_12px_rgba(6,182,212,0.4)] shrink-0">
+                      <div className="relative w-full h-full rounded-full overflow-hidden">
+                        <Image
+                          src={user?.image}
+                          alt={user?.name || "User profile"}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+
+                    {/* user name & role */}
+                    <div className="flex flex-col justify-center">
+                      <span className="text-sm font-semibold tracking-wide text-white leading-tight">
+                        {user?.name}
+                      </span>
+                      <span className="text-xs font-medium text-slate-400 leading-none mt-0.5">
+                        User
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="h-6 w-px bg-white/50 mx-4 shrink-0" />
+
+                  <LogoutModal />
+                </>
               ) : (
                 <Link href="/login">
                   <Button className="px-6 text-xs font-black uppercase tracking-widest text-[#0a0f1d] bg-linear-to-r from-emerald-500 to-emerald-400">

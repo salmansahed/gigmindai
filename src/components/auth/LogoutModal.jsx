@@ -21,7 +21,7 @@ const LogoutModal = () => {
   return (
     <div>
       <AlertDialog>
-        <Button variant="danger" className="text-white rounded-lg">
+        <Button variant="danger" className="text-white rounded-lg w-full">
           Logout
           <FiLogOut />
         </Button>
