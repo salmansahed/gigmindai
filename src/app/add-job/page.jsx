@@ -1,31 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Input,
   TextArea,
   Select,
   Label,
-  Description,
   ListBox,
   Button,
   Form,
   TextField,
   FieldError,
 } from "@heroui/react";
-import {
-  FiBriefcase,
-  FiDollarSign,
-  FiClock,
-  FiLayers,
-  FiImage,
-  FiList,
-  FiCpu,
-  FiPlus,
-  FiX,
-  FiMapPin,
-  FiHome,
-} from "react-icons/fi";
+import { FiLayers, FiList, FiPlus, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 export default function PostGigForm() {
@@ -47,9 +34,11 @@ export default function PostGigForm() {
   const [loading, setLoading] = useState(false);
 
   const categories = [
-    { id: "Web Development", label: "Web Development" },
-    { id: "AI & Data Science", label: "AI & Data Science" },
-    { id: "UI/UX Design", label: "UI/UX Design" },
+    { id: "Frontend", label: "Frontend Development" },
+    { id: "Backend", label: "Backend Development" },
+    { id: "Full Stack", label: "Full Stack Development" },
+    { id: "AI & ML", label: "AI & ML" },
+    { id: "Design", label: "Design" },
   ];
 
   const jobTypes = [

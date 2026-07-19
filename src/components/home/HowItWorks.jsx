@@ -30,13 +30,17 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-20 max-w-7xl mx-auto px-6 text-center">
+    <section
+      id="how-it-works"
+      className="py-20 max-w-7xl mx-auto px-6 text-center"
+    >
       <div className="mb-16">
         <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2">
           Our Workflow Blueprint
         </h2>
         <p className="text-slate-400 text-sm max-w-xl mx-auto">
-          Posting a gig to matching an elite developer takes less than 5 minutes.
+          Posting a gig to matching an elite developer takes less than 5
+          minutes.
         </p>
       </div>
 
@@ -51,8 +55,12 @@ export default function HowItWorks() {
                 {step.number}
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
+              <h3 className="text-lg font-bold text-white mb-2">
+                {step.title}
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                {step.desc}
+              </p>
             </div>
           </Card>
         ))}
