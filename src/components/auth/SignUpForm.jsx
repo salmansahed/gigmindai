@@ -9,6 +9,8 @@ import {
   Label,
   TextField,
   InputGroup,
+  Select,
+  ListBox,
 } from "@heroui/react";
 
 import { Eye, EyeSlash } from "@gravity-ui/icons";
@@ -22,6 +24,7 @@ import Image from "next/image";
 import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
 import useImageUpload from "@/hooks/useImageUpload";
 import { authClient } from "@/lib/auth-client";
+import { FiBriefcase, FiUser } from "react-icons/fi";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -66,6 +69,7 @@ const SignUpForm = () => {
       email: userData.email,
       password: userData.password,
       image: serverUrl,
+      role: userData.role,
     });
 
     if (data) {
@@ -207,6 +211,66 @@ const SignUpForm = () => {
           </p>
         )}
       </TextField>
+      <div className="w-full flex flex-col gap-1.5">
+        <Label className="text-sm font-semibold text-slate-300">
+          Join As <span className="text-red-500">*</span>
+        </Label>
+
+        <Select
+          className="w-full"
+          placeholder="Select one"
+          isRequired
+          name="role"
+        >
+          <Select.Trigger className="h-12 rounded-xl border border-white/10 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 bg-[#161b26]/50 text-sm text-white placeholder:text-slate-500 transition-all duration-200 px-4 w-full flex items-center justify-between cursor-pointer">
+            <Select.Value className="text-white placeholder:text-slate-500 text-sm" />
+            <Select.Indicator className="text-slate-400" />
+          </Select.Trigger>
+
+          <Select.Popover className="bg-[#0f1524] backdrop-blur-2xl border border-white/10 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] overflow-hidden">
+            <ListBox className="p-1">
+              <ListBox.Item
+                id="buyer"
+                textValue="Client (Buyer)"
+                className="flex items-start gap-3 p-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 cursor-pointer transition-colors"
+              >
+                <div className="flex items-center gap-2.5 w-full">
+                  <FiUser className="text-emerald-400 text-base shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-white">
+                      Client (Buyer)
+                    </span>
+                    <span className="text-xs text-slate-400 mt-0.5">
+                      I want to hire elite tech talent
+                    </span>
+                  </div>
+                </div>
+                <ListBox.ItemIndicator className="text-emerald-400" />
+              </ListBox.Item>
+
+              <ListBox.Item
+                id="seller"
+                textValue="Freelancer (Seller)"
+                className="flex items-start gap-3 p-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 cursor-pointer transition-colors"
+              >
+                <div className="flex items-center gap-2.5 w-full">
+                  <FiBriefcase className="text-cyan-400 text-base shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-white">
+                      Freelancer (Seller)
+                    </span>
+                    <span className="text-xs text-slate-400 mt-0.5">
+                      I want to explore jobs and offer services
+                    </span>
+                  </div>
+                </div>
+                <ListBox.ItemIndicator className="text-cyan-400" />
+              </ListBox.Item>
+            </ListBox>
+          </Select.Popover>
+          <FieldError />
+        </Select>
+      </div>
 
       {/* Password Field */}
       <TextField
