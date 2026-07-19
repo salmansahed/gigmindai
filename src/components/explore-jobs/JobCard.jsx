@@ -46,7 +46,7 @@ export default function JobCard({ job }) {
               {job.jobType === "Hourly Rate" ? "/hr" : ""}
             </p>
           </div>
-          <Link href={`/details/${job.id}`}>
+          <Link href={`/gig/details/${job._id}`}>
             <Button className="bg-white/5 hover:bg-[#00e599] hover:text-[#0a0f1d] text-white border border-white/10 hover:border-[#00e599] font-bold rounded-lg text-xs px-4 py-2 transition-all">
               View Details
             </Button>

@@ -6,23 +6,30 @@ import { Button } from "@heroui/react";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { FaBrain } from "react-icons/fa6";
 import { useClientUserSession } from "../../hooks/useClientUserSession";
-import { useRouter } from "next/navigation";
 import LogoutModal from "../auth/LogoutModal";
 import Image from "next/image";
 
 // ─── Navigation Route Definitions ────────────────────────────────────────────
 
-const LOGGED_OUT_ROUTES = [
+const roleUser = [
   { label: "Home", href: "/" },
   { label: "Explore Jobs", href: "/explore-jobs" },
   { label: "About", href: "/about-us" },
 ];
 
-const LOGGED_IN_ROUTES = [
+const roleClient = [
   { label: "Home", href: "/" },
   { label: "Explore Jobs", href: "/explore-jobs" },
-  { label: "Add Job", href: "/add-job" },
-  { label: "Manage Gigs", href: "/manage-gigs" },
+  { label: "Add Job", href: "/client/add-job" },
+  { label: "Manage Gigs", href: "/client/manage-gigs" },
+  { label: "About", href: "/about-us" },
+];
+
+const roleFreelancer = [
+  { label: "Home", href: "/" },
+  { label: "Explore Jobs", href: "/explore-jobs" },
+  { label: "My Applications", href: "/my-applications" },
+  { label: "Saved Gigs", href: "/saved-gigs" },
   { label: "About", href: "/about-us" },
 ];
 
@@ -31,9 +38,14 @@ const LOGGED_IN_ROUTES = [
 export default function Navbar() {
   const { user } = useClientUserSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const router = useRouter();
   const isLoggedIn = !!user;
-  const activeRoutes = isLoggedIn ? LOGGED_IN_ROUTES : LOGGED_OUT_ROUTES;
+  const activeRoutes = isLoggedIn
+    ? user?.role === "client"
+      ? roleClient
+      : user?.role === "freelancer"
+        ? roleFreelancer
+        : roleUser
+    : roleUser;
 
   const toggleMenu = useCallback(() => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -107,8 +119,8 @@ export default function Navbar() {
                       <span className="text-sm font-semibold tracking-wide text-white leading-tight">
                         {user?.name}
                       </span>
-                      <span className="text-xs font-medium text-slate-400 leading-none mt-0.5">
-                        User
+                      <span className="text-xs font-medium text-slate-400 leading-none mt-0.5 capitalize">
+                        {user?.role}
                       </span>
                     </div>
                   </div>
@@ -194,8 +206,8 @@ export default function Navbar() {
                       <span className="text-sm font-semibold tracking-wide text-white leading-tight">
                         {user?.name}
                       </span>
-                      <span className="text-xs font-medium text-slate-400 leading-none mt-0.5">
-                        User
+                      <span className="text-xs font-medium text-slate-400 leading-none mt-0.5 capitalize">
+                        {user?.role}
                       </span>
                     </div>
                   </div>

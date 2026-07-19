@@ -230,7 +230,7 @@ const SignUpForm = () => {
           <Select.Popover className="bg-[#0f1524] backdrop-blur-2xl border border-white/10 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] overflow-hidden">
             <ListBox className="p-1">
               <ListBox.Item
-                id="buyer"
+                id="client"
                 textValue="Client (Buyer)"
                 className="flex items-start gap-3 p-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 cursor-pointer transition-colors"
               >
@@ -249,7 +249,7 @@ const SignUpForm = () => {
               </ListBox.Item>
 
               <ListBox.Item
-                id="seller"
+                id="freelancer"
                 textValue="Freelancer (Seller)"
                 className="flex items-start gap-3 p-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 cursor-pointer transition-colors"
               >
