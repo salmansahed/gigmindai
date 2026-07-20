@@ -87,9 +87,8 @@ export default function Hero() {
 
           {/* CTA Buttons  */}
           <div className="flex flex-wrap gap-3 mt-1">
-           
             <Link
-              href="/"
+              href="/explore-jobs"
               className="inline-block"
               aria-label="Browse available freelance job listings"
             >
@@ -104,7 +103,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/"
+              href="#how-it-works"
               className="inline-block"
               aria-label="Learn how GigMind AI works"
             >

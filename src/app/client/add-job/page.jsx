@@ -15,6 +15,7 @@ import {
 import { FiLayers, FiList, FiPlus, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useClientUserSession } from "@/hooks/useClientUserSession";
+import { getClientJWTToken } from "@/lib/getClientJWTToken";
 
 export default function PostGigForm() {
   const [formData, setFormData] = useState({
@@ -79,6 +80,8 @@ export default function PostGigForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = await getClientJWTToken();
+
     // --- Custom Validation ---
     if (currentSkill.trim() !== "") {
       toast.error(
@@ -116,6 +119,7 @@ export default function PostGigForm() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(finalJobData),
     });
@@ -139,6 +143,10 @@ export default function PostGigForm() {
       setDeliverables([]);
       setCurrentSkill("");
       setCurrentDeliverable("");
+    } else {
+      toast.error(
+        data.message || "❌ Failed to post the Custom Gig. Please try again.",
+      );
     }
   };
 

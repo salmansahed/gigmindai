@@ -8,6 +8,7 @@ import { FaBrain } from "react-icons/fa6";
 import { useClientUserSession } from "../../hooks/useClientUserSession";
 import LogoutModal from "../auth/LogoutModal";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 // ─── Navigation Route Definitions ────────────────────────────────────────────
 
@@ -36,6 +37,7 @@ const roleFreelancer = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Navbar() {
+  const currentPath = usePathname();
   const { user, isPending } = useClientUserSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isLoggedIn = !!user;
@@ -89,7 +91,7 @@ export default function Navbar() {
                 <li key={route.href}>
                   <Link
                     href={route.href}
-                    className="relative px-4 py-2 text-sm font-medium text-slate-300 rounded-lg hover:text-white hover:bg-white/6 active:scale-95 transition-all duration-200 group"
+                    className={`relative px-4 py-2 text-sm font-medium text-slate-300 rounded-lg hover:text-white hover:bg-white/6 active:scale-95 transition-all duration-200 group ${currentPath === route.href ? "text-white bg-white/10" : ""}`}
                   >
                     {route.label}
                     <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-4 h-0.5 rounded-full bg-linear-to-r from-emerald-500 to-cyan-400 transition-all duration-300" />
@@ -188,7 +190,7 @@ export default function Navbar() {
                 key={route.href}
                 href={route.href}
                 onClick={closeMenu}
-                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-300 rounded-xl hover:text-white hover:bg-white/6 transition-all duration-200 group"
+                className={`flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-300 rounded-xl hover:text-white hover:bg-white/6 transition-all duration-200 group ${currentPath === route.href ? "text-white bg-white/10" : ""}`}
                 style={{ transitionDelay: `${idx * 30}ms` }}
               >
                 <span>{route.label}</span>

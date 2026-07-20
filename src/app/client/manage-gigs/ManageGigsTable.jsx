@@ -6,14 +6,21 @@ import Link from "next/link";
 import { FaRegEye } from "react-icons/fa";
 import { FiFolderPlus, FiPlus } from "react-icons/fi";
 import DeleteGigModal from "./DeleteGigModal";
+import { getClientJWTToken } from "@/lib/getClientJWTToken";
 
 const ManageGigsTable = ({ authorId, initialJobs }) => {
   // TanStack Query Setup
   const { data: jobs } = useQuery({
     queryKey: ["my-gigs", authorId],
     queryFn: async () => {
+      const token = await getClientJWTToken();
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/my-gigs/${authorId}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
       );
       return res.json();
     },

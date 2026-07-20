@@ -1,7 +1,6 @@
 import { Card, Button } from "@heroui/react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaStar } from "react-icons/fa";
 
 export default function JobCard({ job }) {
   return (
@@ -9,7 +8,7 @@ export default function JobCard({ job }) {
       {/* ── Image Section ── */}
       <div className="relative h-40 w-full overflow-hidden">
         <Image
-          src={job.image}
+          src={job.coverImage}
           alt={job.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"

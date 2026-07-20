@@ -1,5 +1,6 @@
 "use client";
 
+import { getClientJWTToken } from "@/lib/getClientJWTToken";
 import { AlertDialog, Button } from "@heroui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -10,10 +11,14 @@ const DeleteGigModal = ({ job }) => {
 
   const { mutate: deleteGig, isPending } = useMutation({
     mutationFn: async () => {
+      const token = await getClientJWTToken();
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/delete-jobs/${job._id}`,
         {
           method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         },
       );
       return res.json();
@@ -22,6 +27,8 @@ const DeleteGigModal = ({ job }) => {
       if (data.success) {
         toast.success("Gig deleted successfully");
         queryClient.invalidateQueries({ queryKey: ["my-gigs"] });
+      } else {
+        toast.error(data.message || "Failed to delete gig. Please try again.");
       }
     },
   });
