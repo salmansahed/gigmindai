@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 import TanstackProvider from "@/providers/TanstackProvider";
+import AiChatAssistant from "@/components/ai/AiChatAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
         <TanstackProvider>
           <Navbar />
           {children}
+          <AiChatAssistant />
           <Footer />
           <ToastContainer />
         </TanstackProvider>

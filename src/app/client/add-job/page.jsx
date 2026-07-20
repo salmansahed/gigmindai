@@ -12,10 +12,11 @@ import {
   TextField,
   FieldError,
 } from "@heroui/react";
-import { FiLayers, FiList, FiPlus, FiX } from "react-icons/fi";
+import { FiLayers, FiList, FiPlus, FiX, FiRefreshCw } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useClientUserSession } from "@/hooks/useClientUserSession";
 import { getClientJWTToken } from "@/lib/getClientJWTToken";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 
 export default function PostGigForm() {
   const [formData, setFormData] = useState({
@@ -34,6 +35,12 @@ export default function PostGigForm() {
   const [deliverables, setDeliverables] = useState([]);
   const [currentDeliverable, setCurrentDeliverable] = useState("");
   const [loading, setLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+
+  // 🎯 AI Requirements Dynamic States
+  const [tone, setTone] = useState("professional");
+  const [lengthOption, setLengthOption] = useState("medium");
+  const [hasGenerated, setHasGenerated] = useState(false);
 
   const { user } = useClientUserSession();
 
@@ -50,9 +57,99 @@ export default function PostGigForm() {
     { id: "Hourly Rate", label: "Hourly Rate" },
   ];
 
+  // AI Prompt Templates Options
+  const toneOptions = [
+    { id: "professional", label: "Professional Tone" },
+    { id: "technical", label: "Technical Tone" },
+    { id: "casual", label: "Casual Tone" },
+    { id: "urgent", label: "Urgent/High-Priority" },
+  ];
+
+  // AI Output Length Options
+  const lengthOptions = [
+    { id: "short", label: "Short" },
+    { id: "medium", label: "Medium" },
+    { id: "long", label: "Detailed" },
+  ];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // --- AI Auto-Generate & Regenerate Handler ---
+  const handleAiGenerate = async () => {
+    if (!formData.title.trim()) {
+      toast.error("Please enter a Gig Title first to generate details!");
+      return;
+    }
+
+    try {
+      setAiLoading(true);
+      const toastId = toast.loading(
+        hasGenerated
+          ? "🔄 GigMind AI is regenerating gig details..."
+          : "🤖 GigMind AI is generating gig details...",
+      );
+
+      const res = await fetch("/api/generate-job-details", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: formData.title,
+          tone: tone,
+          length: lengthOption,
+        }),
+      });
+
+      const result = await res.json();
+      toast.dismiss(toastId);
+
+      if (result.success) {
+        const {
+          description,
+          category,
+          skills: aiSkills,
+          deliverables: aiDeliverables,
+        } = result.data;
+
+        // 1. Description & Category Update
+        setFormData((prev) => ({
+          ...prev,
+          description: description || prev.description,
+          category: category || prev.category,
+        }));
+
+        // 2. Skills Update
+        if (aiSkills && Array.isArray(aiSkills) && aiSkills.length > 0) {
+          setSkills(aiSkills);
+        }
+
+        // 3. Deliverables Update
+        if (
+          aiDeliverables &&
+          Array.isArray(aiDeliverables) &&
+          aiDeliverables.length > 0
+        ) {
+          setDeliverables(aiDeliverables);
+        }
+
+        setHasGenerated(true); // Regenerate state active
+
+        toast.success(
+          hasGenerated
+            ? "✨ Gig details regenerated successfully!"
+            : "✨ Gig details auto-filled by AI successfully!",
+        );
+      } else {
+        toast.error(result.error || "Failed to generate AI response.");
+      }
+    } catch (error) {
+      console.error("AI Generation Error:", error);
+      toast.error("An error occurred while calling GigMind AI.");
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const handleAddSkill = () => {
@@ -82,7 +179,6 @@ export default function PostGigForm() {
 
     const token = await getClientJWTToken();
 
-    // --- Custom Validation ---
     if (currentSkill.trim() !== "") {
       toast.error(
         "Please click '+ Add' to add your Required Skill before submitting.",
@@ -143,6 +239,7 @@ export default function PostGigForm() {
       setDeliverables([]);
       setCurrentSkill("");
       setCurrentDeliverable("");
+      setHasGenerated(false);
     } else {
       toast.error(
         data.message || "❌ Failed to post the Custom Gig. Please try again.",
@@ -167,11 +264,98 @@ export default function PostGigForm() {
           onSubmit={handleSubmit}
           className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl flex flex-col gap-8 w-full"
         >
-          {/* 1. Job Title */}
+          {/* 1. Job Title with AI Controls Bar */}
           <TextField isRequired className="w-full">
-            <Label className="text-white font-medium text-sm mb-2 block">
-              Gig Title
-            </Label>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+              <Label className="text-white font-medium text-sm block">
+                Gig Title
+              </Label>
+
+              {/* ✨ GigMind AI Toolbar (Tone, Length & Regenerate) */}
+              <div className="flex flex-wrap items-center gap-2">
+                {/* 1. Tone / Prompt Template Selection */}
+                <Select
+                  selectedKey={tone}
+                  onSelectionChange={(key) => setTone(String(key))}
+                  className="w-36"
+                >
+                  <Select.Trigger className="bg-gray-800 border border-gray-600 text-white rounded-xl h-8 px-2.5 w-full flex items-center justify-between outline-none cursor-pointer">
+                    <Select.Value className="text-xs text-cyan-300 font-medium">
+                      {toneOptions.find((t) => t.id === tone)?.label ||
+                        "Select Tone"}
+                    </Select.Value>
+                    <Select.Indicator>
+                      <FiLayers className="text-slate-400 size-3 ml-1" />
+                    </Select.Indicator>
+                  </Select.Trigger>
+                  <Select.Popover className="bg-gray-800 border border-gray-600 rounded-xl p-1 shadow-xl z-50">
+                    <ListBox>
+                      {toneOptions.map((opt) => (
+                        <ListBox.Item
+                          key={opt.id}
+                          id={opt.id}
+                          textValue={opt.label}
+                          className="text-white hover:bg-white/10 focus:bg-white/10 outline-none rounded-lg p-2 text-xs cursor-pointer block"
+                        >
+                          {opt.label}
+                        </ListBox.Item>
+                      ))}
+                    </ListBox>
+                  </Select.Popover>
+                </Select>
+
+                {/* 2. Adjustable Output Length Selection */}
+                <Select
+                  selectedKey={lengthOption}
+                  onSelectionChange={(key) => setLengthOption(String(key))}
+                  className="w-28"
+                >
+                  <Select.Trigger className="bg-gray-800 border border-gray-600 text-white rounded-xl h-8 px-2.5 w-full flex items-center justify-between outline-none cursor-pointer">
+                    <Select.Value className="text-xs text-amber-300 font-medium">
+                      {lengthOptions.find((l) => l.id === lengthOption)
+                        ?.label || "Length"}
+                    </Select.Value>
+                    <Select.Indicator>
+                      <FiList className="text-slate-400 size-3 ml-1" />
+                    </Select.Indicator>
+                  </Select.Trigger>
+                  <Select.Popover className="bg-gray-800 border border-gray-600 rounded-xl p-1 shadow-xl z-50">
+                    <ListBox>
+                      {lengthOptions.map((opt) => (
+                        <ListBox.Item
+                          key={opt.id}
+                          id={opt.id}
+                          textValue={opt.label}
+                          className="text-white hover:bg-white/10 focus:bg-white/10 outline-none rounded-lg p-2 text-xs cursor-pointer block"
+                        >
+                          {opt.label}
+                        </ListBox.Item>
+                      ))}
+                    </ListBox>
+                  </Select.Popover>
+                </Select>
+
+                {/* 3. Auto-Fill / Regenerate AI Button */}
+                <Button
+                  type="button"
+                  onPress={handleAiGenerate}
+                  isLoading={aiLoading}
+                  variant="secondary"
+                  className="bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 font-bold text-xs h-8 px-3 rounded-xl hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  {!aiLoading &&
+                    (hasGenerated ? (
+                      <FiRefreshCw className="size-3.5 text-cyan-400" />
+                    ) : (
+                      <FaWandMagicSparkles className="size-3.5 text-amber-400 animate-pulse" />
+                    ))}
+                  <span>
+                    {hasGenerated ? "Regenerate" : "Auto-Fill with AI"}
+                  </span>
+                </Button>
+              </div>
+            </div>
+
             <Input
               className="w-full bg-gray-700 border border-gray-500 placeholder:text-slate-400 text-white rounded-xl h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#00e599] focus:border-transparent"
               type="text"
@@ -386,7 +570,7 @@ export default function PostGigForm() {
                     <button
                       type="button"
                       onClick={() => handleRemoveSkill(skill)}
-                      className="text-red-400 hover:text-red-500"
+                      className="text-red-400 hover:text-red-500 cursor-pointer"
                     >
                       <FiX className="size-3.5" />
                     </button>
@@ -433,7 +617,7 @@ export default function PostGigForm() {
                     <button
                       type="button"
                       onClick={() => handleRemoveDeliverable(index)}
-                      className="text-red-400 hover:text-red-500 shrink-0"
+                      className="text-red-400 hover:text-red-500 shrink-0 cursor-pointer"
                     >
                       <FiX className="size-4" />
                     </button>
