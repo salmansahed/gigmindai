@@ -202,9 +202,12 @@ export default function PostGigForm() {
     }
 
     setLoading(true);
+    const DEFAULT_COVER_IMAGE =
+      "https://plus.unsplash.com/premium_photo-1678917827802-721b5f5b4bf0";
 
     const finalJobData = {
       ...formData,
+      coverImage: formData.coverImage.trim() || DEFAULT_COVER_IMAGE,
       budget: Number(formData.budget),
       skills: skills,
       deliverables: deliverables,
@@ -504,9 +507,9 @@ export default function PostGigForm() {
             </TextField>
 
             {/* 7. Cover Image URL */}
-            <TextField isRequired className="w-full md:col-span-2">
+            <TextField className="w-full md:col-span-2">
               <Label className="text-white font-medium text-sm mb-2 block">
-                Cover Image URL
+                Cover Image URL (Optional)
               </Label>
               <Input
                 className="w-full bg-gray-700 border border-gray-500 placeholder:text-slate-400 text-white rounded-xl h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#00e599] focus:border-transparent"

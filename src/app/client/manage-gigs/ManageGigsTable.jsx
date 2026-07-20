@@ -103,7 +103,7 @@ const ManageGigsTable = ({ authorId, initialJobs }) => {
                   <Table.Cell className="bg-neutral-600 text-white">
                     ${job.budget}
                   </Table.Cell>
-                  <Table.Cell className="bg-neutral-600 text-white flex gap-2">
+                  <Table.Cell className="bg-neutral-600 text-white flex gap-2 flex-wrap">
                     <Link href={`/gig/details/${job._id}`}>
                       <Button
                         variant="secondary"
