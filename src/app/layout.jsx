@@ -3,6 +3,7 @@ import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
+import TanstackProvider from "@/providers/TanstackProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,10 +37,12 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="gradient-bg-mesh min-h-full flex flex-col antialiased text-white">
-        <Navbar />
-        {children}
-        <Footer />
-        <ToastContainer />
+        <TanstackProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <ToastContainer />
+        </TanstackProvider>
       </body>
     </html>
   );

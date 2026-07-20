@@ -14,6 +14,7 @@ import {
 } from "@heroui/react";
 import { FiLayers, FiList, FiPlus, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { useClientUserSession } from "@/hooks/useClientUserSession";
 
 export default function PostGigForm() {
   const [formData, setFormData] = useState({
@@ -32,6 +33,8 @@ export default function PostGigForm() {
   const [deliverables, setDeliverables] = useState([]);
   const [currentDeliverable, setCurrentDeliverable] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { user } = useClientUserSession();
 
   const categories = [
     { id: "Frontend", label: "Frontend Development" },
@@ -106,6 +109,7 @@ export default function PostGigForm() {
       budget: Number(formData.budget),
       skills: skills,
       deliverables: deliverables,
+      authorId: user?.id,
     };
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/jobs`, {
