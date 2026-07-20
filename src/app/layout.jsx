@@ -17,7 +17,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "GigMind AI - Hire Top Freelance Talents with AI Power",
+  title: {
+    default: "GigMind AI - Hire Top Freelance Talents with AI Power",
+    template: "%s | GigMind AI",
+  },
   description:
     "Experience the next-generation AI-powered freelancing platform. Connect with elite talent, verify resumes instantly with AI, and secure matches effortlessly.",
   keywords: [

@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Add Job",
+};
+
 import { serverUserSession } from "@/lib/serverUserSession";
 import { Button } from "@heroui/react";
 import Link from "next/link";

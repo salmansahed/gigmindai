@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "About Us",
+};
+
 import Link from "next/link";
 import { Card, Button } from "@heroui/react";
 

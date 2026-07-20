@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Privacy Policy",
+};
+
 import Link from "next/link";
 import {
   FiShield,

@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Explore Jobs",
+};
+
 import { Suspense } from "react";
 import { Card } from "@heroui/react";
 import JobCard from "../../components/explore-jobs/JobCard";

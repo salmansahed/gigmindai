@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Gig Details",
+};
+
 import Image from "next/image";
 import {
   FiDollarSign,

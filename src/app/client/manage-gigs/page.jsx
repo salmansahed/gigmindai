@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Manage Gigs",
+};
+
 import { serverUserSession } from "@/lib/serverUserSession";
 import ManageGigsTable from "./ManageGigsTable";
 import { getServerJWTToken } from "@/lib/getServerJWTToken";

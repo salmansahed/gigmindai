@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Sign Up",
+};
+
 import SignUpForm from "@/components/auth/SignUpForm";
 
 const page = () => {

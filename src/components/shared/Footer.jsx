@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FaBrain } from "react-icons/fa6";
+import { FaBrain, FaXTwitter } from "react-icons/fa6";
 import { FiMail, FiMapPin, FiGithub, FiLinkedin } from "react-icons/fi";
 
 export default function Footer() {
@@ -135,6 +135,15 @@ export default function Footer() {
               aria-label="LinkedIn Link"
             >
               <FiLinkedin className="w-4 h-4" />
+            </Link>
+            <Link
+              href="https://x.com/salman_sahed10"
+              target="_blank"
+              rel="noreferrer"
+              className="p-2.5 rounded-lg bg-white/5 hover:bg-white/10 hover:text-white transition-all"
+              aria-label="Twitter Link"
+            >
+              <FaXTwitter className="w-4 h-4" />
             </Link>
           </div>
         </div>

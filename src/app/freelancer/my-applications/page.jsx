@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "My Applications",
+};
+
 import { serverUserSession } from "@/lib/serverUserSession";
 import { Button, Card, Spinner } from "@heroui/react";
 import Link from "next/link";

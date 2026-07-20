@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Terms of Service",
+};
+
 import Link from "next/link";
 import {
   FiFileText,

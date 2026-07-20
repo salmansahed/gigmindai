@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Saved Gigs",
+};
+
 import { serverUserSession } from "@/lib/serverUserSession";
 import { Button, Spinner } from "@heroui/react";
 import Link from "next/link";
