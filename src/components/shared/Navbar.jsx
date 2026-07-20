@@ -36,7 +36,7 @@ const roleFreelancer = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Navbar() {
-  const { user } = useClientUserSession();
+  const { user, isLoading } = useClientUserSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isLoggedIn = !!user;
   const activeRoutes = isLoggedIn
@@ -84,7 +84,7 @@ export default function Navbar() {
             </Link>
 
             {/* ── Desktop nav links ─────────────────────────────────────── */}
-            <ul className="hidden md:flex items-center gap-1" role="list">
+            <ul className="hidden lg:flex items-center gap-1" role="list">
               {activeRoutes.map((route) => (
                 <li key={route.href}>
                   <Link
@@ -99,7 +99,7 @@ export default function Navbar() {
             </ul>
 
             {/* ── Desktop CTA ───────────────────────────────────────────── */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-3">
               {isLoggedIn ? (
                 <>
                   <div className="flex items-center gap-3">
@@ -153,7 +153,7 @@ export default function Navbar() {
               isIconOnly
               onPress={toggleMenu}
               size="sm"
-              className="md:hidden text-slate-300 hover:text-white hover:bg-white/8"
+              className="lg:hidden text-slate-300 hover:text-white hover:bg-white/8 bg-transparent"
             >
               {isMobileMenuOpen ? (
                 <FiX className="w-5 h-5" />
@@ -167,7 +167,7 @@ export default function Navbar() {
 
       {/* ── Mobile dropdown panel ─────────────────────────────────────────── */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-120 opacity-100" : "max-h-0 opacity-0"}`}
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-120 opacity-100" : "max-h-0 opacity-0"}`}
       >
         <div className="bg-[#0a0f1d]/90 backdrop-blur-2xl border-b border-white/8 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col gap-1">
@@ -217,11 +217,29 @@ export default function Navbar() {
                   <LogoutModal />
                 </>
               ) : (
-                <Link href="/login">
-                  <Button className="px-6 text-xs font-black uppercase tracking-widest text-[#0a0f1d] bg-linear-to-r from-emerald-500 to-emerald-400">
-                    Login
-                  </Button>
-                </Link>
+                <div className="flex items-center gap-3 w-full">
+                  <Link
+                    href="/auth/sign-up"
+                    className="flex-1"
+                    onClick={closeMenu}
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full px-6 text-xs font-black uppercase tracking-widest text-white border-white/40 hover:bg-white/10"
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                  <Link
+                    href="/auth/login"
+                    className="flex-1"
+                    onClick={closeMenu}
+                  >
+                    <Button className="w-full px-6 text-xs font-black uppercase tracking-widest text-[#0a0f1d] bg-linear-to-r from-emerald-500 to-emerald-400 hover:shadow-[0_0_24px_rgba(16,185,129,0.5)]">
+                      Login
+                    </Button>
+                  </Link>
+                </div>
               )}
             </div>
           </div>
