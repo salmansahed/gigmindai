@@ -24,7 +24,7 @@ export async function POST(req) {
       - Post a Custom Gig: /client/add-job
       - Register / Sign Up: /auth/sign-up
       - Browse All Gigs/Jobs: /explore-jobs
-      - About Us: /about
+      - About Us: /about-us
       - Contact Support: /contact-support
 
       Behavior Instructions:

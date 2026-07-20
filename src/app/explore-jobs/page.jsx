@@ -41,7 +41,16 @@ async function getJobs(resolvedParams) {
   if (sortBy === "Price (High to Low)") mappedSort = "price-high";
   if (sortBy === "Price (Low to High)") mappedSort = "price-low";
 
-  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/jobs?search=${searchTerm}&category=${categoryFilter}&type=${typeFilter}&sort=${mappedSort}&page=${currentPage}&limit=${itemsPerPage}`;
+  const queryParams = new URLSearchParams({
+    search: searchTerm,
+    category: categoryFilter,
+    type: typeFilter,
+    sort: mappedSort,
+    page: currentPage.toString(),
+    limit: itemsPerPage.toString(),
+  });
+
+  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/jobs?${queryParams.toString()}`;
 
   try {
     const response = await fetch(url, { cache: "no-store" });
@@ -62,7 +71,7 @@ async function JobsGrid({ resolvedParams }) {
   const data = await getJobs(resolvedParams);
   const jobs = data.jobs || [];
   const currentPage = data.meta?.currentPage || 1;
-  const totalJobs = data.meta?.totalJobs || 0; 
+  const totalJobs = data.meta?.totalJobs || 0;
   const itemsPerPage = 8;
 
   return (
