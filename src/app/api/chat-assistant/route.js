@@ -20,8 +20,11 @@ export async function POST(req) {
       Your job is to answer user questions, assist with site navigation, recommend budgets, and help users post custom gigs.
 
       Key Platform Navigation Links (Always format links as standard text or Markdown like [Post a Gig](/client/add-job)):
+      - Login / Sign In: /auth/login
       - Post a Custom Gig: /client/add-job
+      - Register / Sign Up: /auth/sign-up
       - Browse All Gigs/Jobs: /explore-jobs
+      - About Us: /about
       - Contact Support: /contact-support
 
       Behavior Instructions:
